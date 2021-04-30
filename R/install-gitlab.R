@@ -84,11 +84,10 @@ gitlab_remote <- function(repo, subdir = NULL,
     }
 
     git_remote(
-      repo = repo,
+      url = paste0(build_url(host, repo), ".git")
       subdir = subdir,
       credentials = credentials,
-      sha = sha,
-      host = host,
+      ref = sha %||% meta$ref,
       ...
     )
   }
