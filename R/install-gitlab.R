@@ -187,7 +187,7 @@ auth_token_has_gitlab_api_access <- function(host = "gitlab.com", pat) {
   url <- build_url(host, "api", "v4", "version")
   has_access <- tryCatch({
     download(tempfile(), url, headers = c("Private-Token" = pat))
-    TRUE,
+    TRUE
   }, error = function(e) {
     FALSE
   })
