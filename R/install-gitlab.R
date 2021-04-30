@@ -82,7 +82,7 @@ gitlab_remote <- function(repo, subdir = NULL,
     url_has_token <- grepl("^(.*://)?[^@/]+@", url)
 
     if (git2r_inst && has_token) {
-      credentials <- getNamespaceExport("git2r", "cred_user_pass")(
+      credentials <- getExportedValue("git2r", "cred_user_pass")(
         username = "gitlab-ci-token",
         password = auth_token
       )
