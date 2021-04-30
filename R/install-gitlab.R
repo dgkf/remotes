@@ -87,6 +87,7 @@ gitlab_remote <- function(repo, subdir = NULL,
         password = auth_token
       )
     } else if (!url_has_token && !git2r_inst && has_token) {
+      print("injecting token")
       url_protocol <- gsub("((.*)://)?.*", "\\1", url)
       url_path     <- gsub("((.*)://)?", "", url)
       url <- paste0(
