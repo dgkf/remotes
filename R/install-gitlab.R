@@ -79,7 +79,7 @@ gitlab_remote <- function(repo, subdir = NULL,
 
     git2r_inst <- pkg_installed("git2r")
     has_token  <- !is.null(auth_token)
-    url_has_token <- grepl("^.*:.*@[^@]*(/|$)", url)
+    url_has_token <- grepl("^(.*://)?[^@/]+@", url)
 
     if (git2r_inst && has_token) {
       credentials <- getNamespaceExport("git2r", "cred_user_pass")(
@@ -87,10 +87,18 @@ gitlab_remote <- function(repo, subdir = NULL,
         password = auth_token
       )
     } else if (!url_has_token && !git2r_inst && has_token) {
-      url_protocol <- gsub("((.*)://)?.*", "\\2", url)
+      url_protocol <- gsub("((.*)://)?.*", "\\1", url)
       url_path     <- gsub("((.*)://)?", "", url)
-      url <- paste0(url_protocol, "://gitlab-ci-token:", auth_token, "@", url_path)
+      url <- paste0(
+        url_protocol,
+        "gitlab-ci-token:",
+        auth_token,
+        "@",
+        url_path
+      )
     }
+
+    cat(url, "\n")
 
     git_remote(
       url = url,
