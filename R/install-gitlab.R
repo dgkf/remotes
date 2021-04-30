@@ -58,7 +58,7 @@ install_gitlab <- function(repo,
 gitlab_remote <- function(repo, subdir = NULL,
                        auth_token = gitlab_pat(), sha = NULL,
                        host = "gitlab.com", ..., 
-                       git_fallback = getOptions("remotes.gitlab_git_fallback", TRUE)) {
+                       git_fallback = getOption("remotes.gitlab_git_fallback", TRUE)) {
 
   meta <- parse_git_repo(repo)
   meta$ref <- meta$ref %||% "HEAD"
